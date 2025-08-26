@@ -1,16 +1,40 @@
 const validPin = 1234;
+
+function getInputValueNumberById(id) {
+  const inputField = document.getElementById(id);
+  const inputFieldValueNumber = parseInt(inputField.value);
+  return inputFieldValueNumber;
+}
+
+function getInputValueById(id) {
+  const inputField = document.getElementById(id);
+  const inputFieldValue = inputField.value;
+  return inputFieldValue;
+}
+// function to get inner text
+function getInnerText(id) {
+  const element = document.getElementById(id);
+  const elementInnerText = element.innerText;
+  const elementInnerTextNumber = parseInt(elementInnerText);
+  return elementInnerTextNumber;
+}
+// function to set inner text
+
+function setInnerText(value) {
+  const availableBalanceElement = document.getElementById("available-balance");
+  availableBalanceElement.innerText = value;
+}
+
 // add money
 document
   .getElementById("add-money-btn")
   .addEventListener("click", function (e) {
     e.preventDefault();
-    const bank = document.getElementById("bank").value;
-    const bankAccount = document.getElementById("bank-account").value;
-    const addAmount = parseInt(document.getElementById("add-amount").value);
-    const pinNumber = parseInt(document.getElementById("pin-number").value);
-    const availableBalance = parseInt(
-      document.getElementById("available-balance").innerText
-    );
+    const bank = getInputValueById("bank");
+    const bankAccount = getInputValueById("bank-account");
+    const addAmount = getInputValueNumberById("add-amount");
+    const pinNumber = getInputValueNumberById("pin-number");
+    const availableBalance = getInnerText("available-balance");
 
     if (bankAccount.length < 11) {
       alert("Please provide valid account number");
@@ -20,21 +44,18 @@ document
       alert("Please provide valid pin number");
     }
     const newAvailableBalance = availableBalance + addAmount;
-    document.getElementById("available-balance").innerText =
-      newAvailableBalance;
+    setInnerText(newAvailableBalance);
     // console.log(bank, bankAccount, addAmount, pinNumber, availableBalance);
   });
 
 // cash out
 document.getElementById("cash-out-btn").addEventListener("click", function (e) {
   e.preventDefault();
-  const withdrawAmount = document.getElementById("withdraw-amount").value;
-  const availableBalance = parseInt(
-    document.getElementById("available-balance").innerText
-  );
+  const withdrawAmount = getInputValueById("withdraw-amount");
+  const availableBalance = getInnerText("available-balance");
 
   const newAvailableBalance = availableBalance - withdrawAmount;
-  document.getElementById("available-balance").innerText = newAvailableBalance;
+  setInnerText(newAvailableBalance);
 });
 
 // toggling features
